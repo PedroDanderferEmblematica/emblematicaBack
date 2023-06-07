@@ -1,11 +1,18 @@
 'use strict';
 
-const express = require('express'), bodyParser = require('body-parser'), nodemailer = require("nodemailer");
+const express = require('express'), bodyParser = require('body-parser'), nodemailer = require("nodemailer"), cors = require('cors');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
+
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions));
 
 app.post('/', async function (req, res){
     let name = req.body.name, email = req.body.email, content=req.body.content;
